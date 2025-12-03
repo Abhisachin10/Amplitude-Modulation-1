@@ -75,22 +75,59 @@ Compare the original modulating signal with the demodulated signal. PROCEDURE
 •	Verify the generated waveform using Tabulation and Model Waveform
 
 Program
+~~~
+Ac = 12.6;
+Am = 6.3;
+Fc = 2900;
+Fm = 290;
+Fs = 29000;
+t = 0:1/Fs:2/Fm;
+e1 = (Ac*sin(2*3.14*Fm*t));
+subplot(4,1,1);
+plot(t,e1);
+xgrid;
+title('Message Signal');
+xlabel('Time');
+ylabel('Amplitude');
 
+e2 = (Ac*sin(2*3.14*Fc*t));
+subplot(4,1,2);
+plot(t,e2);
+xgrid;
+title('Carrier Signal');
+xlabel('Time');
+ylabel('Amplitude');
+
+e3 = (Ac + (Am*sin(2*3.14*Fm*t))).*sin(2*3.14*Fc*t);
+subplot(4,1,3);
+plot(t,e3);
+xgrid;
+title('AM Modulated Signal');
+xlabel('Time');
+ylabel('Amplitude');
+
+demodulated_signal = abs(hilbert(e3)) - Ac;
+subplot(4,1,4);
+plot(t,demodulated_signal);
+xgrid;
+title('Demodulated Signal');
+xlabel('Time');
+ylabel('Amplitude');
+~~~
 
 
 Output Waveform
 
+<img width="1638" height="1011" alt="Screenshot 2025-10-27 204400 1" src="https://github.com/user-attachments/assets/e861aedc-eb74-4d99-a9c6-630c386d5c07" />
 
 
 
 
 TABULATION:
 
+<img width="939" height="896" alt="image" src="https://github.com/user-attachments/assets/ee88648c-ddfe-46eb-b83f-9cbe6dc430b9" />
+<img width="927" height="470" alt="image" src="https://github.com/user-attachments/assets/c1119346-c67b-4187-8027-52a590173976" />
 
-
-Calculation
-1.	ma (Theory) = am/ac =
-2.	ma(Practical) = (Emax-Emin)/(Emax+Emin) =
 
 
 MODEL GRAPH
@@ -102,3 +139,4 @@ MODEL GRAPH
 
 RESULT:
 Thus the amplitude modulation and demodulation is experimentally done and the output is verified.
+<img width="738" height="236" alt="image" src="https://github.com/user-attachments/assets/d6bb1d08-40eb-4edc-83e8-b3b7461aec8e" />
